@@ -1,21 +1,19 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const bcrypt = require('bcrypt');
+const { request } = require('express');
 
 // URL: /api/user
 router.post('/', async (req, res) => {
   try {
     const newUser = await User.create({
-      // TODO: SET USERNAME TO USERNAME SENT IN REQUEST
+      username: req.body.username,
 
-      // TOD: SET PASSWORD TO PASSWORD SENT IN REQUEST
+      password: req.body.password
     });
 
     req.session.save(() => {
-      // TODO: SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
-
-      // TODO: SET USERNAME IN REQUEST SESSION TO USERNAME RETURNED FROM DATABASE
-
-      // TODO: SET LOGGEDIN TO TRUE IN REQUEST SESSION
+      req.session.newUser = newUser.id
 
       res.json(newUser);
     });
@@ -39,7 +37,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = user.checkPassword(req.body.password);
+    const validPassword = await user.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'No user account found!' });
@@ -47,11 +45,12 @@ router.post('/login', async (req, res) => {
     }
 
     req.session.save(() => {
-      // TODO: SET USERID IN REQUEST SESSION TO ID RETURNED FROM DATABASE
+      req.session.userId = user.id
 
-      // TODO: SET USERNAME IN REQUEST SESSION TO USERNAME RETURNED FROM DATABASE
+      req.session.userName = user.userName
 
-      // TODO: SET LOGGEDIN TO TRUE IN REQUEST SESSION
+      req.session.loggedIn = true
+
 
       res.json({ user, message: 'You are now logged in!' });
     });
