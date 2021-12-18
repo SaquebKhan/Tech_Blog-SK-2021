@@ -12,7 +12,7 @@
 
 ## Overview
 
-Writing about tech can be just as important as making it. Developers spend plenty of time creating new applications and debugging existing codebases, but most developers also spend at least some of their time reading and writing about technical concepts, recent advancements, and new technologies. A simple Google search for any concept covered in this course returns thousands of think pieces and tutorials from developers of all skill levels!
+In the tech work it is important to writing about tech can be as well as making it. Developers around the world work together to solve problems to bugs as well as working together on a project. This app shows this concept as a tech blog.
 
 ### Installation and Start
 
